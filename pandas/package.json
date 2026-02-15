@@ -1,0 +1,12 @@
+{
+  "name": "hallo",
+  "version": "1.0.0",
+  "description": "This is sample file",
+  "main": "hallo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node hallo.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
