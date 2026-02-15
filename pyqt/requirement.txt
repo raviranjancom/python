@@ -1,0 +1,7 @@
+PyQt5
+django
+numpy
+pandas
+matplotlib
+requests
+beautifulsoup
