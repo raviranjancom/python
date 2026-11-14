@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 import json
 from tools import tools,FUCNTION_NAME_TO_FUNCTION_MAP;
+from utility.logger import log
 load_dotenv(".config")
 
 client=OpenAI(
@@ -36,14 +37,17 @@ while True:
         msg=response.choices[0].message;
         if not msg.tool_calls:
             break;
+        log(f"Step {_+1}: model requested {len(msg.tool_calls)} tool calls");
         history.append(msg);
         for tool_call in msg.tool_calls:
             func_name=tool_call.function.name
 
             try:
-                func_args=json.loads(tool_call.function.arguments or "{}")
+                func_args=json.loads(tool_call.function.arguments or "{}");
+                log(f"  {func_name}({func_args})");
                 fn=FUCNTION_NAME_TO_FUNCTION_MAP[func_name];
                 result=fn(**func_args);
+                log(f"   =>{result}");
             except Exception as e:
                 result=f"Error while running {func_name}:{e}";
             history.append({
